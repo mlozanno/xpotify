@@ -9,18 +9,25 @@
 		"build:dev": "webpack --mode development",
 		"build:prod": "webpack --mode production",
 		"lint:fix": "eslint --fix src --ext .js",
-		"lint": "eslint src --ext .js"
+		"lint": "eslint src --ext .js",
+		"test": "jest",
+		"test:watch": "jest --watch --collect-coverage",
+		"test:coverage": "jest --collect-coverage"
+	},
+	"jest": {
+		"moduleNameMapper": {
+			"^~/(.*)": "<rootDir>/src/$1",
+			"\\.(jpg|png|svg)$": "<rootDir>/assetTransformer"
+		}
 	},
 	"dependencies": {
 		"axios": "^0.19.2",
 		"history": "^4.10.1",
-		"immer": "^6.0.3",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.1.2",
-		"redux": "^4.0.5",
-		"redux-saga": "^1.1.3"
+		"redux": "^4.0.5"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.8.4",
@@ -28,6 +35,10 @@
 		"@babel/plugin-transform-runtime": "^7.9.6",
 		"@babel/preset-env": "^7.9.6",
 		"@babel/preset-react": "^7.9.4",
+		"@testing-library/jest-dom": "^5.5.0",
+		"@testing-library/react": "^10.0.4",
+		"@types/jest": "^25.2.1",
+		"babel-jest": "^25.5.1",
 		"babel-loader": "^8.1.0",
 		"babel-plugin-root-import": "^6.5.0",
 		"css-loader": "^3.5.3",
@@ -41,6 +52,7 @@
 		"eslint-plugin-react": "^7.19.0",
 		"eslint-plugin-react-hooks": "^3.0.0",
 		"file-loader": "^6.0.0",
+		"jest": "^25.5.3",
 		"prettier": "^2.0.5",
 		"prop-types": "^15.7.2",
 		"style-loader": "^1.2.1",
