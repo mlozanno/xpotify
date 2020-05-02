@@ -32,8 +32,6 @@ describe('Auth reducers', () => {
 	});
 
 	it('Should action name and value to be equals', () => {
-		console.log(SET_AUTH_DATA);
-		console.log(String(SET_AUTH_DATA));
 		expect(SET_AUTH_DATA).toEqual('SET_AUTH_DATA');
 	});
 });
