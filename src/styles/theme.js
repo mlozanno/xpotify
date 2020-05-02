@@ -6,6 +6,8 @@ export const colors = {
 	dark: '#999',
 	light: '#FAFAFA',
 	hover: 'rgba(0, 0, 0, .5)',
+	green: '#1DB954',
+	greenHover: '#1ED760',
 };
 
 export const fontSize = {
