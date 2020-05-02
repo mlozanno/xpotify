@@ -6,7 +6,11 @@ import AlbumList from '~/components/AlbumList';
 
 describe('<AlbumList />', () => {
 	it('Should be render the <AlbumList /> component', () => {
-		const { getByTestId } = render(<AlbumList children={<div />} />);
+		const { getByTestId } = render(
+			<AlbumList>
+				<div />
+			</AlbumList>
+		);
 
 		const albumList = getByTestId('album-list');
 
@@ -14,7 +18,11 @@ describe('<AlbumList />', () => {
 	});
 
 	it('Should be render a children', () => {
-		const { getByText } = render(<AlbumList children={<h1>Rendered!</h1>} />);
+		const { getByText } = render(
+			<AlbumList>
+				<h1>Rendered!</h1>
+			</AlbumList>
+		);
 
 		const children = getByText('Rendered!');
 
