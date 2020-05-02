@@ -30,6 +30,8 @@ module.exports = {
 		'import/no-extraneous-dependencies': 'off',
 		'react/jsx-props-no-spreading': 'off',
 		'arrow-parens': [2, 'as-needed'],
+		'no-param-reassign': 'off',
+		'consistent-return': 'off',
 		'jest/no-disabled-tests': 'warn',
 		'jest/no-focused-tests': 'error',
 		'jest/no-identical-title': 'error',
