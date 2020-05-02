@@ -7,5 +7,5 @@ export const mergeArtists = artists =>
 		}, [])
 		.join(' - ');
 
-export var getImage = (images, size) =>
+export const getImage = (images, size) =>
 	images.find(image => image.height === size);
