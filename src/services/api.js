@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const auth = axios.create({
+export const authService = axios.create({
 	baseURL: 'https://accounts.spotify.com',
 });
 
-export const api = axios.create({
+export const apiService = axios.create({
 	baseURL: 'https://api.spotify.com/v1/',
 });
