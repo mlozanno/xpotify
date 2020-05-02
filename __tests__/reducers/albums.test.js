@@ -39,7 +39,7 @@ describe('Albums reducer', () => {
 		);
 	});
 
-	it('Should handle Albums data', () => {
+	it('Should handle albums data', () => {
 		expect(
 			reducer(INITIAL_STATE, {
 				type: SET_ALBUMS,
