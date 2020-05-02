@@ -29,6 +29,6 @@ export const getAuthToken = async (
 
 		return payload;
 	} catch (err) {
-		console.error(err);
+		console.error(err); //eslint-disable-line
 	}
 };

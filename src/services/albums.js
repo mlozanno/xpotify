@@ -16,6 +16,6 @@ export const getAlbums = async (token, search, limit) => {
 
 		return payload;
 	} catch (error) {
-		console.error(error);
+		console.error(error); //eslint-disable-line
 	}
 };
