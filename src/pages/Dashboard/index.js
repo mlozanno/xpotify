@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getAlbums } from '~/services/albums';
 
-import store from '~/store';
-import { SET_ALBUMS } from '~/store/modules/albums/actions';
+import { SET_ALBUMS, SET_SEARCH } from '~/store/modules/albums/actions';
 
 import Layout from '~/components/Layout';
 import Input from '~/components/Input';
@@ -12,34 +11,53 @@ import AlbumList from '~/components/AlbumList';
 import Album from '~/components/Album';
 
 const Dashboard = () => {
-	const [search, setSearch] = useState('');
-	const { auth, albums } = store.getState();
-
 	const dispatch = useDispatch();
 
-	const handleAlbums = async ({ target: { value } }) => {
-		setSearch(value);
+	const {
+		auth,
+		albums: { result, search },
+	} = useSelector(state => state);
 
-		if (value.length) {
-			try {
-				const payload = await getAlbums(auth.access_token, value, 10);
+	useEffect(() => {
+		const fetchAlbums = async () => {
+			if (search.length) {
+				try {
+					const payload = await getAlbums(auth.access_token, search, 10);
 
-				dispatch({ type: SET_ALBUMS, payload });
-			} catch (error) {
-				console.log(error);
+					dispatch({ type: SET_ALBUMS, payload });
+				} catch (error) {
+					console.log(error);
+				}
+			} else {
+				dispatch({ type: SET_ALBUMS, payload: [] });
 			}
-		}
+		};
+
+		fetchAlbums();
+	}, [search]);
+
+	const handleAlbums = async ({ target: { value } }) => {
+		dispatch({ type: SET_SEARCH, payload: { search: value } });
 	};
 
 	return (
 		<Layout>
 			<Input handleChange={handleAlbums} value={search} />
-
-			<AlbumList>
-				{albums.map(album => (
-					<Album {...album} key={album.id} />
-				))}
-			</AlbumList>
+			{search && (
+				<p>
+					Resultados encontrados para <b />
+					&quot;{search}&quot;
+				</p>
+			)}
+			{!result.length ? (
+				<p>Nenhum álbum para ser exibido :(</p>
+			) : (
+				<AlbumList>
+					{result.map(album => (
+						<Album {...album} key={album.id} />
+					))}
+				</AlbumList>
+			)}
 		</Layout>
 	);
 };
