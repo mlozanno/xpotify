@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import localStorageService from '~/services/localStorage';
 
 import store from '~/store';
 
 const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
 	const { signed } = store.getState().auth;
+	const token = !!localStorageService.getAccessToken();
+	const authenticated = signed || !!token;
 
-	if (!signed && isPrivate) {
+	if (!authenticated && isPrivate) {
 		return <Redirect to="/" />;
 	}
 
-	if (signed && !isPrivate) {
+	if (authenticated && !isPrivate) {
 		return <Redirect to="/dashboard" />;
 	}
 
