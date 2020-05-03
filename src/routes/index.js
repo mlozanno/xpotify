@@ -5,12 +5,14 @@ import Route from './Route';
 
 import SignIn from '~/pages/SignIn';
 import Dashboard from '~/pages/Dashboard';
+import Album from '~/pages/Album';
 
 const Routes = () => {
 	return (
 		<Switch>
 			<Route path="/" exact component={SignIn} />
 			<Route path="/dashboard" component={Dashboard} isPrivate />
+			<Route path="/album/:id" component={Album} isPrivate />
 		</Switch>
 	);
 };
