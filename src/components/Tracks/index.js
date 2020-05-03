@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { FaRegClock } from 'react-icons/fa';
@@ -9,22 +10,19 @@ import { StyledTracks } from './styles';
 
 import Album from '~/components/Album';
 
-import store from '~/store';
 import { UPDATE_CURRENT_TRACK } from '~/store/modules/tracks/actions';
 
-const Tracks = ({ tracks }) => {
+const Tracks = ({ tracks: tracksData }) => {
 	const { id } = useParams();
-
-	const { albums } = store.getState();
-	const [albumData, setAlbumData] = useState(null);
 
 	const dispatch = useDispatch();
 
-	const currentTracks = useSelector(state => state.tracks);
+	const {
+		albums: { result },
+		tracks: currentTracks,
+	} = useSelector(state => state);
 
-	useEffect(() => {
-		setAlbumData(albums.find(album => album.id === id));
-	}, [albumData]);
+	const currentAlbum = () => result.find(album => album.id === id);
 
 	useEffect(() => {
 		if (currentTracks.prev) {
@@ -44,9 +42,9 @@ const Tracks = ({ tracks }) => {
 
 	return (
 		<StyledTracks>
-			{albumData && (
+			{currentAlbum() && (
 				<div>
-					<Album {...albumData} />
+					<Album {...currentAlbum()} />
 				</div>
 			)}
 
@@ -61,7 +59,7 @@ const Tracks = ({ tracks }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{tracks.map((track, index) => (
+					{tracksData.map((track, index) => (
 						<tr key={track.id} onClick={() => handleMusic(track.preview_url)}>
 							<td>{index + 1}</td>
 							<td>{track.name}</td>
@@ -72,6 +70,10 @@ const Tracks = ({ tracks }) => {
 			</table>
 		</StyledTracks>
 	);
+};
+
+Tracks.propTypes = {
+	tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Tracks;
