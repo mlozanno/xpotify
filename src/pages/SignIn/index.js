@@ -9,6 +9,7 @@ import {
 	scopes,
 } from '~/config';
 
+import localStorageService from '~/services/localStorage';
 import { getAuthToken } from '~/services/auth';
 import history from '~/services/history';
 
@@ -19,9 +20,7 @@ import { StyledSignIn } from './styles';
 
 import ErrorMessage from '~/components/ErrorMessage';
 
-import logo from '~/assets/logo.png';
-
-import store from '~/store';
+import logo from '~/assets/xpotify-logo.png';
 
 const SignIn = () => {
 	const dispatch = useDispatch();
@@ -51,6 +50,8 @@ const SignIn = () => {
 			getAuthToken(code, redirectUri, clientId, clientSecret)
 				.then(payload => {
 					dispatch({ type: SET_AUTH_DATA, payload });
+					localStorageService.setToken(payload);
+
 					history.push('/dashboard');
 				})
 				.catch(err => {
