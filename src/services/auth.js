@@ -1,29 +1,15 @@
 import qs from 'qs';
 import { authService } from '~/services/api';
 
-export const getAuthToken = async (
-	code,
-	redirectUri,
-	clientId,
-	clientSecret
-) => {
+export const getAuthToken = async (code, redirectUri) => {
 	const sentData = {
 		grant_type: 'authorization_code',
 		code,
 		redirect_uri: redirectUri,
 	};
 
-	const headers = {
-		Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString(
-			'base64'
-		)}`,
-		'Content-Type': 'application/x-www-form-urlencoded',
-	};
-
 	try {
-		const res = await authService.post('api/token', qs.stringify(sentData), {
-			headers,
-		});
+		const res = await authService.post('api/token', qs.stringify(sentData));
 
 		const { data: payload } = await res;
 
