@@ -1,4 +1,4 @@
-import { mergeArtists, getImage } from '~/utils';
+import { mergeArtists, getImage, convertToHumanTime } from '~/utils';
 
 const artists = [{ name: 'Angra' }, { name: 'Tarja' }];
 const images = [
@@ -51,6 +51,28 @@ describe('Util getImage to get image by resolution', () => {
 			height: 640,
 			url: 'http://images.com/640',
 			width: 640,
+		});
+	});
+
+	describe('Util convertToHumanTime', () => {
+		it('Should receive 0m and convert to 0:00', () => {
+			expect(convertToHumanTime(0)).toEqual('0:00');
+		});
+
+		it('Should receive 1000ms and convert to 0:01', () => {
+			expect(convertToHumanTime(1000)).toEqual('0:01');
+		});
+
+		it('Should receive 11000 and convert to 0:11', () => {
+			expect(convertToHumanTime(11000)).toEqual('0:11');
+		});
+
+		it('Should receive 60000 and convert to 1:00', () => {
+			expect(convertToHumanTime(60000)).toEqual('1:00');
+		});
+
+		it('Should be receive ms in string and convert to 1:00', () => {
+			expect(convertToHumanTime('60000')).toEqual('1:00');
 		});
 	});
 });
