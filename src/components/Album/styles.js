@@ -4,7 +4,7 @@ import { metric, fontSize, colors, medias } from '~/styles/theme';
 
 export const StyledAlbum = styled.article`
 	text-align: center;
-	width: calc(100% / 2 - ${metric(1)});
+	width: 100%;
 	margin-bottom: ${metric(4)};
 
 	img {
@@ -29,13 +29,4 @@ export const StyledAlbum = styled.article`
 		font-size: ${fontSize.xmall};
 		color: ${colors.dark};
 	}
-
-	${medias.tablet(`
-		width: calc(100% / 3 - ${metric(2)});
-	`)}
-
-	${medias.desktop(`
-		width: calc(100% / 5 - ${metric(4)});
-		margin-bottom: ${metric(8)};
-	`)}
 `;
