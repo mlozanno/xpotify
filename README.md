@@ -24,11 +24,15 @@ $ yarn build:dev
 - `test:watch` Run all tests with --watch
 - `test:coverage` Generage covarage folder in root path project
 
-### Todo:
+### Todo
 
 - [ ] Add error dispatch in services (album and auth)
-- [ ] Add token persist in localstorage
+- [x] ~~Add token persist in localstorage~~
 - [ ] Write `catch` tests in services (album and auth)
-- [ ] Implement refresh token
+- [x] ~~Implement refresh token~~
 - [ ] Write Router tests
 - [ ] Write SignIn and Dashboard tests
+
+### Notes
+
+1 - A maneira correta de fazer a primeira autenticação para receber o access_token e refresh_token seria fazendo isto por uma aplicação `bff` com variáveis de ambiente, porém, para não adicionar muita complexidade ao teste, preferi fazer isto diretamente no front-end com o arquivo `config.js`
