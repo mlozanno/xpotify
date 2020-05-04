@@ -1,5 +1,5 @@
 import reducer, { INITIAL_STATE } from '~/store/modules/albums/reducer';
-import { SET_ALBUMS } from '~/store/modules/albums/actions';
+import { SET_ALBUMS, SET_SEARCH } from '~/store/modules/albums/actions';
 
 const payload = {
 	result: [
@@ -51,7 +51,25 @@ describe('Albums reducer', () => {
 		).toEqual(payload);
 	});
 
-	it('Should action name and value to be equals', () => {
+	it('Should action SET_ALBUMS name and value to be equals', () => {
 		expect(SET_ALBUMS).toEqual('SET_ALBUMS');
+	});
+
+	it('Should handle search data', () => {
+		expect(
+			reducer(INITIAL_STATE, {
+				type: SET_SEARCH,
+				payload: { search: 'teste' },
+			})
+		).toEqual({ ...INITIAL_STATE, search: 'teste' });
+	});
+
+	it('Should handle search data if albums result are in state', () => {
+		expect(
+			reducer(payload, {
+				type: SET_SEARCH,
+				payload: { search: 'teste' },
+			})
+		).toEqual({ ...payload, search: 'teste' });
 	});
 });
