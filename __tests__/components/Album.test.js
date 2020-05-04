@@ -21,7 +21,7 @@ const albumData = {
 const altText = `${albumData.name} - ${albumData.artists[0].name}`;
 
 describe('<Album />', () => {
-	it('Should be render the <Album /> component', () => {
+	it('should render the <Album /> component', () => {
 		const { getByTestId } = render(
 			<MemoryRouter>
 				<Album {...albumData} />
@@ -33,7 +33,7 @@ describe('<Album />', () => {
 		expect(album).toBeDefined();
 	});
 
-	it('Should be album have an image', () => {
+	it('should album have an image', () => {
 		const { getByTestId, getByAltText } = render(
 			<MemoryRouter>
 				<Album {...albumData} />
@@ -46,7 +46,7 @@ describe('<Album />', () => {
 		expect(album).toContainElement(albumImage);
 	});
 
-	it('Should be image have an url', () => {
+	it('should image have an url', () => {
 		const { getByAltText } = render(
 			<MemoryRouter>
 				<Album {...albumData} />
@@ -61,7 +61,7 @@ describe('<Album />', () => {
 		);
 	});
 
-	it('Should be image have an alt value', () => {
+	it('should image have an alt value', () => {
 		const { getByAltText } = render(
 			<MemoryRouter>
 				<Album {...albumData} />
@@ -73,7 +73,7 @@ describe('<Album />', () => {
 		expect(albumImage).toHaveAttribute('alt', expect.stringContaining(altText));
 	});
 
-	it('Should be album have a title', () => {
+	it('should album have a title', () => {
 		const { getByTestId, getByText } = render(
 			<MemoryRouter>
 				<Album {...albumData} />
@@ -86,7 +86,7 @@ describe('<Album />', () => {
 		expect(album).toContainElement(albumTitle);
 	});
 
-	it('Should be album have an artist', () => {
+	it('should album have an artist', () => {
 		const { getByTestId, getByText } = render(
 			<MemoryRouter>
 				<Album {...albumData} />
