@@ -1,4 +1,6 @@
-## XPotify
+<p align="center">
+	<img src="./github-cover.png" />
+</p>
 
 ### Versions
 
