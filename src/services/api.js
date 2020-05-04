@@ -6,8 +6,6 @@ import { clientId, clientSecret } from '~/config';
 import localStorageService from '~/services/localStorage';
 import history from '~/services/history';
 
-const token = localStorageService.getAccessToken();
-
 export const authService = axios.create({
 	baseURL: 'https://accounts.spotify.com',
 	headers: {
@@ -20,11 +18,12 @@ export const authService = axios.create({
 
 export const apiService = axios.create({
 	baseURL: 'https://api.spotify.com/v1/',
-	headers: { Authorization: `Bearer ${token}` },
 });
 
 apiService.interceptors.request.use(
 	config => {
+		const token = localStorageService.getAccessToken();
+
 		if (token) {
 			config.headers.Authorization = `Bearer ${token}`;
 		}
@@ -42,11 +41,7 @@ apiService.interceptors.response.use(
 	},
 	async error => {
 		const originalRequest = error.config;
-
-		if (
-			error.response.status === 401 &&
-			originalRequest.url === 'https://accounts.spotify.com/api/token'
-		) {
+		if (error.response.status === 401 && originalRequest.url === '/api/token') {
 			history.push('/');
 			return Promise.reject(error);
 		}
@@ -56,18 +51,22 @@ apiService.interceptors.response.use(
 
 			const refreshToken = localStorageService.getRefreshToken();
 
-			const sentData = { refresh_token: refreshToken };
+			const sentData = {
+				refresh_token: refreshToken,
+				grant_type: 'refresh_token',
+			};
 
 			const { status, data } = await authService.post(
 				'/api/token',
-				qs(sentData)
+				qs.stringify(sentData)
 			);
 
-			if (status === 201) {
+			if (status === 200) {
 				localStorageService.setToken(data);
 
 				apiService.defaults.headers.common.Authorization = `Bearer ${localStorageService.getAccessToken()}`;
-				return axios(originalRequest);
+
+				return authService.request(originalRequest);
 			}
 		}
 
