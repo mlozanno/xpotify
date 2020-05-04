@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { FaRegClock } from 'react-icons/fa';
 
-import { convertToHumanTime } from '~/utils';
+import { convertToHumanTime, getImage, mergeArtists } from '~/utils';
 
 import { StyledTracks } from './styles';
 
@@ -29,15 +29,28 @@ const Tracks = ({ tracks: tracksData }) => {
 			currentTracks.prev.pause();
 		}
 
-		if (currentTracks.next) {
-			currentTracks.next.play();
+		if (currentTracks.current) {
+			currentTracks.current.play();
 		}
 	}, [currentTracks]);
 
-	const handleMusic = previewUrl => {
-		const payload = { track: new Audio(previewUrl) };
+	const handleMusic = currentTrack => {
+		const { name: trackName } = currentTrack;
+		const { artists, images } = currentAlbum();
 
-		dispatch({ type: UPDATE_CURRENT_TRACK, payload });
+		const audio = { track: new Audio(currentTrack.preview_url) };
+
+		dispatch({
+			type: UPDATE_CURRENT_TRACK,
+			payload: {
+				...audio,
+				currentTrack: {
+					trackName,
+					artists: mergeArtists(artists),
+					image: getImage(images, 64),
+				},
+			},
+		});
 	};
 
 	return (
@@ -60,7 +73,7 @@ const Tracks = ({ tracks: tracksData }) => {
 				</thead>
 				<tbody>
 					{tracksData.map((track, index) => (
-						<tr key={track.id} onClick={() => handleMusic(track.preview_url)}>
+						<tr key={track.id} onClick={() => handleMusic(track)}>
 							<td>{index + 1}</td>
 							<td>{track.name}</td>
 							<td>{convertToHumanTime(track.duration_ms)}</td>
