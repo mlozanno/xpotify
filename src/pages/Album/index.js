@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { apiService } from '~/services/api';
 
 import Layout from '~/components/Layout';
 import Tracks from '~/components/Tracks';
 
-import store from '~/store';
-
-// import { Container } from './styles';
-
 const Album = () => {
 	const { id } = useParams();
 	const [tracks, setTraks] = useState([]);
 
-	const { auth } = store.getState();
+	const { auth } = useSelector(state => state);
 
 	useEffect(() => {
 		const fetchAlbum = async () => {
