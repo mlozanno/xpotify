@@ -37,7 +37,7 @@ const Dashboard = () => {
 					dispatch({ type: SET_ALBUMS, payload });
 					localStorageService.setAlbums(payload);
 				} catch (error) {
-					console.log(error);
+					console.log(error); //eslint-disable-line
 				}
 			} else {
 				dispatch({ type: SET_ALBUMS, payload: [] });
@@ -53,7 +53,7 @@ const Dashboard = () => {
 
 	return (
 		<Layout>
-			<Input handleChange={handleAlbums} value={search} />
+			<Input handleChange={handleAlbums} />
 
 			{search && <Legend text={`Resultados encontrados para "${search}"`} />}
 
