@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { metric, fontSize, colors, medias } from '~/styles/theme';
+import { metric, fontSize, colors } from '~/styles/theme';
 
 export const StyledAlbum = styled.article`
 	text-align: center;
