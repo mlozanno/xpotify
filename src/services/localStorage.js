@@ -1,12 +1,22 @@
 export default {
-	setToken: tokenObj => {
-		localStorage.setItem('access_token', tokenObj.access_token);
-		localStorage.setItem('refresh_token', tokenObj.refresh_token);
+	setToken: ({ access_token: accessToken, refresh_token: refreshToken }) => {
+		localStorage.setItem('accessToken', accessToken);
+
+		if (refreshToken) {
+			localStorage.setItem('refreshToken', refreshToken);
+		}
 	},
-	getAccessToken: () => localStorage.getItem('access_token'),
-	getRefreshToken: () => localStorage.getItem('refresh_token'),
+	getAccessToken: () => localStorage.getItem('accessToken'),
+	getRefreshToken: () => localStorage.getItem('refreshToken'),
 	clearToken: () => {
-		localStorage.removeItem('access_token');
-		localStorage.removeItem('refresh_token');
+		localStorage.removeItem('accessToken');
+		localStorage.removeItem('refreshToken');
+	},
+	setAlbums: albumObj => {
+		localStorage.setItem('albums', JSON.stringify(albumObj));
+	},
+	getAlbums: () => JSON.parse(localStorage.getItem('albums')),
+	clearAlbums: () => {
+		localStorage.removeItem('albums');
 	},
 };
