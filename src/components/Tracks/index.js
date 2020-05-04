@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { FaRegClock } from 'react-icons/fa';
 
 import { convertToHumanTime, getImage, mergeArtists } from '~/utils';
+import localStorageService from '~/services/localStorage';
 
 import { StyledTracks } from './styles';
 
@@ -22,7 +23,15 @@ const Tracks = ({ tracks: tracksData }) => {
 		tracks: currentTracks,
 	} = useSelector(state => state);
 
-	const currentAlbum = () => result.find(album => album.id === id);
+	const currentAlbum = () => {
+		const storageAlbums = localStorageService.getAlbums();
+
+		if (storageAlbums && storageAlbums.length) {
+			return storageAlbums.find(album => album.id === id);
+		}
+
+		return result.find(album => album.id === id);
+	};
 
 	useEffect(() => {
 		if (currentTracks.prev) {
