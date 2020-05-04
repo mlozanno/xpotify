@@ -9,6 +9,7 @@ import Layout from '~/components/Layout';
 import Input from '~/components/Input';
 import AlbumList from '~/components/AlbumList';
 import Album from '~/components/Album';
+import Legend from '~/components/Legend';
 
 const Dashboard = () => {
 	const dispatch = useDispatch();
@@ -43,14 +44,11 @@ const Dashboard = () => {
 	return (
 		<Layout>
 			<Input handleChange={handleAlbums} value={search} />
-			{search && (
-				<p>
-					Resultados encontrados para <b />
-					&quot;{search}&quot;
-				</p>
-			)}
+
+			{search && <Legend text={`Resultados encontrados para "${search}"`} />}
+
 			{!result.length ? (
-				<p>Nenhum álbum para ser exibido :(</p>
+				<Legend text="Nenhum álbum para ser exibido :(" emptyState />
 			) : (
 				<AlbumList>
 					{result.map(album => (
