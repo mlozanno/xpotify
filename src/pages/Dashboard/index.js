@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAlbums } from '~/services/albums';
+import localStorageService from '~/services/localStorage';
 
 import { SET_ALBUMS, SET_SEARCH } from '~/store/modules/albums/actions';
 
@@ -20,12 +21,21 @@ const Dashboard = () => {
 	} = useSelector(state => state);
 
 	useEffect(() => {
+		const storageAlbums = localStorageService.getAlbums();
+
+		if (storageAlbums && storageAlbums.length) {
+			dispatch({ type: SET_ALBUMS, payload: [...storageAlbums] });
+		}
+	}, []);
+
+	useEffect(() => {
 		const fetchAlbums = async () => {
 			if (search.length) {
 				try {
 					const payload = await getAlbums(auth.access_token, search, 10);
 
 					dispatch({ type: SET_ALBUMS, payload });
+					localStorageService.setAlbums(payload);
 				} catch (error) {
 					console.log(error);
 				}
