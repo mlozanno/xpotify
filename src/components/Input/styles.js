@@ -18,6 +18,7 @@ export const StyledInput = styled.div`
 		outline: none;
 		padding: ${metric(1)};
 		font-weight: bold;
+		margin-bottom: ${metric(4)};
 	}
 
 	${medias.tablet(`
