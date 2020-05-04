@@ -2,15 +2,17 @@ import { UPDATE_CURRENT_TRACK } from './actions';
 
 export const INITIAL_STATE = {
 	prev: null,
-	next: null,
+	current: null,
+	currentTrack: {},
 };
 
 export default function tracks(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case UPDATE_CURRENT_TRACK:
 			return {
-				prev: state.next,
-				next: action.payload.track,
+				prev: state.current,
+				current: action.payload.track,
+				currentTrack: action.payload.currentTrack,
 			};
 
 		default:
