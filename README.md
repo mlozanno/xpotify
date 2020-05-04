@@ -56,4 +56,6 @@ $ yarn build:dev
 
 4 - Optei por utilizar o styled-component de uma forma mais simples ao invés algum padrão de css como BEM, por exemplo.
 
+5 - Não achei necessário utiilzação de branchs, pois estava desenvolvendo sozinho.
+
 > Se alguém chegou até este último item, parabéns, escrevi demais hahaha. Gostaria de agradecer a oportunidade e pedir um favor: Em caso de sucesso ou não, gostaria que quem fizesse o review do código, pudesse me dar um feedback acerca dos acertos e o que poderia melhorar, pode ser através das issues do próprio github, o que acha? 😬
