@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { metric } from '~/styles/theme';
+import { metric, colors } from '~/styles/theme';
 
 import logo from '~/assets/xpotify-logo-short.png';
 
@@ -18,5 +18,25 @@ export const StyledLayout = styled.div`
 		top: ${metric(2)};
 		left: ${metric(2)};
 		background-image: url(${logo});
+	}
+
+	.backButton {
+		display: inline-block;
+		margin-bottom: ${metric(2)};
+		position: relative;
+		padding-left: ${metric(2)};
+
+		&::before {
+			content: '';
+			width: ${metric(1)};
+			height: ${metric(1)};
+			border: 2px solid transparent;
+			border-left-color: ${colors.light};
+			border-bottom-color: ${colors.light};
+			position: absolute;
+			left: 0;
+			top: 8px;
+			transform: rotate(45deg);
+		}
 	}
 `;

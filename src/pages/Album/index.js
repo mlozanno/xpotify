@@ -29,9 +29,9 @@ const Album = () => {
 
 	return (
 		<Layout>
-			<h1>
-				<Link to="/dashboard">Voltar</Link>
-			</h1>
+			<Link to="/dashboard" className="backButton">
+				Voltar
+			</Link>
 
 			<Tracks tracks={tracks} />
 		</Layout>
