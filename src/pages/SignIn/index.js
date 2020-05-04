@@ -66,7 +66,7 @@ const SignIn = () => {
 	return (
 		<StyledSignIn>
 			<img src={logo} alt="XPotify logo" />
-			<a href={url}>Login to Spotify</a>
+			<a href={url}>Entrar no XPotify</a>
 			<ErrorMessage />
 		</StyledSignIn>
 	);
