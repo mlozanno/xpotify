@@ -7,7 +7,7 @@ export const StyledLayout = styled.div`
 	max-width: ${metric(128)};
 	width: 100%;
 	margin: ${metric(5, 'auto', 0)};
-	padding: ${metric(4, 2)};
+	padding: ${metric(4, 2, 15)};
 
 	&::before {
 		content: '';
