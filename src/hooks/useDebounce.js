@@ -8,8 +8,6 @@ const useDebounce = (value, delay) => {
 			setDebouncedValue(value);
 		}, delay);
 
-		console.log();
-
 		return () => {
 			clearTimeout(handler);
 		};
