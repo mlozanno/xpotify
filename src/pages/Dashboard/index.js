@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import useDebounce from '~/hooks/useDebounce';
+
 import { getAlbums } from '~/services/albums';
 import localStorageService from '~/services/localStorage';
 
@@ -20,6 +22,8 @@ const Dashboard = () => {
 		albums: { result, search },
 	} = useSelector(state => state);
 
+	const debouncedSearchTerm = useDebounce(search, 1000);
+
 	useEffect(() => {
 		const storageAlbums = localStorageService.getAlbums();
 
@@ -30,14 +34,15 @@ const Dashboard = () => {
 
 	useEffect(() => {
 		const fetchAlbums = async () => {
-			if (search.length) {
+			if (search.length && debouncedSearchTerm) {
 				try {
-					const payload = await getAlbums(auth.access_token, search, 10);
-
-					dispatch({ type: SET_ALBUMS, payload });
-					localStorageService.setAlbums(payload);
+					if (debouncedSearchTerm) {
+						const payload = await getAlbums(auth.access_token, search, 10);
+						dispatch({ type: SET_ALBUMS, payload });
+						localStorageService.setAlbums(payload);
+					}
 				} catch (error) {
-					console.log(error); //eslint-disable-line
+						console.log(error); //eslint-disable-line
 				}
 			} else {
 				dispatch({ type: SET_ALBUMS, payload: [] });
@@ -45,7 +50,7 @@ const Dashboard = () => {
 		};
 
 		fetchAlbums();
-	}, [search]);
+	}, [debouncedSearchTerm]);
 
 	const handleAlbums = async ({ target: { value } }) => {
 		dispatch({ type: SET_SEARCH, payload: { search: value } });
